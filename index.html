@@ -129,17 +129,47 @@
         color: var(--brand-dark);
       }
 
-      .language-select {
-        min-width: 76px;
-        height: 36px;
-        padding: 0 28px 0 13px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--panel);
-        color: var(--ink);
-        font: inherit;
+      .lang-switch {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 7px;
+        color: #9b9296;
         font-size: 13px;
         font-weight: 720;
+        letter-spacing: 0;
+        white-space: nowrap;
+      }
+
+      .lang-option {
+        position: relative;
+        border: 0;
+        padding: 4px 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .lang-option:hover,
+      .lang-option.is-active {
+        color: var(--ink);
+      }
+
+      .lang-option.is-active::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--brand);
+        content: "";
+      }
+
+      .lang-divider {
+        color: #d2c7cb;
+        font-weight: 560;
       }
 
       .hero {
@@ -888,9 +918,9 @@
           font-size: 12px;
         }
 
-        .language-select {
-          min-width: 72px;
-          height: 34px;
+        .lang-switch {
+          font-size: 12px;
+          gap: 6px;
         }
 
         .hero,
@@ -1077,10 +1107,11 @@
           <a href="#routing" data-en="OBS / DAW" data-zh="OBS / DAW">OBS / DAW</a>
           <a href="#download" data-en="Download" data-zh="下载">Download</a>
         </nav>
-        <select class="language-select" aria-label="Language" onchange="window.setLang(this.value)" oninput="window.setLang(this.value)">
-          <option value="en" selected>En</option>
-          <option value="zh">中</option>
-        </select>
+        <div class="lang-switch" aria-label="Language">
+          <button class="lang-option is-active" type="button" data-lang-option="en" aria-pressed="true" onclick="window.setLang('en')">En</button>
+          <span class="lang-divider" aria-hidden="true">/</span>
+          <button class="lang-option" type="button" data-lang-option="zh" aria-pressed="false" onclick="window.setLang('zh')">中</button>
+        </div>
       </div>
     </header>
 
@@ -1395,7 +1426,7 @@
     </main>
 
     <script>
-      const languageSelect = document.querySelector(".language-select");
+      const languageOptions = document.querySelectorAll("[data-lang-option]");
       const pageDescription = document.querySelector('meta[name="description"]');
       const languageStorageKey = "openstems-lang-v2";
       const normalizeLang = (lang) => (lang === "en" || lang === "zh" ? lang : null);
@@ -1419,9 +1450,11 @@
         const nextLang = normalizeLang(lang) || "en";
         document.body.dataset.lang = nextLang;
         document.documentElement.lang = nextLang === "zh" ? "zh-CN" : "en";
-        if (languageSelect) {
-          languageSelect.value = nextLang;
-        }
+        languageOptions.forEach((option) => {
+          const isActive = option.dataset.langOption === nextLang;
+          option.classList.toggle("is-active", isActive);
+          option.setAttribute("aria-pressed", String(isActive));
+        });
 
         document.querySelectorAll("[data-en][data-zh]").forEach((node) => {
           const text = node.getAttribute("data-" + nextLang) || node.getAttribute("data-en") || "";
@@ -1447,10 +1480,6 @@
 
       window.setLang = setLang;
       setLang(initialLang);
-      if (languageSelect) {
-        languageSelect.addEventListener("change", (event) => setLang(event.target.value));
-        languageSelect.addEventListener("input", (event) => setLang(event.target.value));
-      }
     </script>
   </body>
 </html>
