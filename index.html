@@ -223,31 +223,32 @@
         position: relative;
         z-index: 3;
         width: min(520px, 42%);
-        padding-top: 76px;
+        /* Align the copy block with the screenshot group so the hero reads as one balanced composition. */
+        padding-top: clamp(116px, 9vw, 136px);
       }
 
       h1 {
-        max-width: 640px;
-        font-size: 58px;
-        line-height: 1;
-        font-weight: 840;
+        max-width: 600px;
+        font-size: 52px;
+        line-height: 1.04;
+        font-weight: 760;
         letter-spacing: 0;
         text-wrap: balance;
       }
 
       body[data-lang="zh"] h1 {
-        max-width: 620px;
-        font-size: 52px;
-        line-height: 1.03;
-        font-weight: 820;
+        max-width: 580px;
+        font-size: 46px;
+        line-height: 1.08;
+        font-weight: 740;
       }
 
       .lead {
         max-width: 520px;
         margin-top: 22px;
         color: var(--text);
-        font-size: 20px;
-        line-height: 1.45;
+        font-size: 18px;
+        line-height: 1.5;
       }
 
       .sublead {
@@ -290,9 +291,9 @@
       }
 
       .hero-points {
-        max-width: 520px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0;
+        max-width: 560px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 0;
         padding-top: 20px;
         border-top: 1px solid rgba(231, 220, 223, 0.9);
       }
@@ -319,18 +320,26 @@
 
       .hero-points li {
         min-height: auto;
-        padding: 0 18px;
+        padding: 0 18px 0 0;
         border: 0;
         background: transparent;
         box-shadow: none;
       }
 
-      .hero-points li:first-child {
+      .hero-points li:nth-child(odd) {
         padding-left: 0;
+        padding-right: 18px;
       }
 
-      .hero-points li + li {
+      .hero-points li:nth-child(even) {
+        padding-right: 0;
+        padding-left: 18px;
         border-left: 1px solid rgba(231, 220, 223, 0.9);
+      }
+
+      .hero-points li:nth-child(n+3) {
+        padding-top: 14px;
+        border-top: 1px solid rgba(231, 220, 223, 0.9);
       }
 
       .hero-points b {
@@ -339,7 +348,7 @@
         color: var(--ink);
         font-size: 14px;
         line-height: 1.25;
-        font-weight: 820;
+        font-weight: 740;
       }
 
       .hero-points span {
@@ -378,6 +387,19 @@
         flex-wrap: wrap;
         gap: 12px;
         margin-top: 30px;
+      }
+
+      .hero-media .hero-actions {
+        position: absolute;
+        right: 0;
+        /* Match the CTA baseline to the bottom of the left-side value proposition block. */
+        top: clamp(414px, 31.8vw, 459px);
+        bottom: auto;
+        z-index: 4;
+        width: min(100%, 960px);
+        justify-content: flex-end;
+        margin-top: 0;
+        padding-right: 8px;
       }
 
       .button {
@@ -1142,6 +1164,14 @@
           width: 100%;
         }
 
+        .hero-media .hero-actions {
+          position: static;
+          width: 100%;
+          justify-content: stretch;
+          margin-top: 18px;
+          padding-right: 0;
+        }
+
         .hero-points,
         .product-facts,
         .routing-copy {
@@ -1155,6 +1185,15 @@
         .hero-points li + li,
         .mode-item + .mode-item {
           border-left: 0;
+        }
+
+        .hero-points li:nth-child(even) {
+          padding-left: 0;
+          border-left: 0;
+        }
+
+        .hero-points li:nth-child(odd) {
+          padding-right: 0;
         }
 
         .hero-points li + li {
@@ -1296,23 +1335,23 @@
             >OpenStems is integrated into Pear and LX Music, bringing stem control to YouTube Music and Chinese music sources.</p>
             <ul class="hero-points">
               <li>
-                <b data-en="Realtime control" data-zh="实时控制">Realtime control</b>
-                <span data-en="No pause." data-zh="无需暂停。">No pause.</span>
+                <b data-en="No GPU" data-zh="无需 GPU">No GPU</b>
+                <span data-en="Run it on a regular computer." data-zh="普通电脑即可使用。">Run it on a regular computer.</span>
               </li>
               <li>
-                <b data-en="HQ quality" data-zh="HQ 高质量">HQ quality</b>
-                <span data-en="More tracks." data-zh="更多音轨。">More tracks.</span>
+                <b data-en="No virtual sound card" data-zh="无需虚拟声卡">No virtual sound card</b>
+                <span data-en="No virtual cable or driver chain." data-zh="无需虚拟音频线或驱动链路。">No virtual cable or driver chain.</span>
               </li>
               <li>
-                <b data-en="Direct output" data-zh="直接输出">Direct output</b>
-                <span data-en="OBS or DAW." data-zh="OBS 或 DAW。">OBS or DAW.</span>
+                <b data-en="No setup" data-zh="无需任何设置">No setup</b>
+                <span data-en="Install, open, and start." data-zh="安装打开即可开始。">Install, open, and start.</span>
+              </li>
+              <li>
+                <b data-en="One-click workflow" data-zh="一键工作流">One-click workflow</b>
+                <span data-en="Separate stems, then send to OBS or DAW." data-zh="一键分轨，一键发送 OBS 或 DAW。">Separate stems, then send to OBS or DAW.</span>
               </li>
             </ul>
 
-            <div class="hero-actions">
-              <a class="button primary" href="#download" data-en="Download" data-zh="下载">Download</a>
-              <a class="button" href="#routing" data-en="OBS / DAW setup" data-zh="OBS / DAW 设置">OBS / DAW setup</a>
-            </div>
           </div>
 
           <div class="hero-media">
@@ -1326,6 +1365,10 @@
               <div class="hero-motion-layer route">
                 <img src="assets/screenshots/pear/pear-openstems-recording-software.png" alt="">
               </div>
+            </div>
+            <div class="hero-actions">
+              <a class="button primary" href="#download" data-en="Download" data-zh="下载">Download</a>
+              <a class="button" href="#routing" data-en="OBS / DAW setup" data-zh="OBS / DAW 设置">OBS / DAW setup</a>
             </div>
           </div>
         </div>
@@ -1528,6 +1571,11 @@
               data-en="Download OpenStems."
               data-zh="下载 OpenStems。"
             >Download OpenStems.</h2>
+            <p
+              class="section-copy"
+              data-en="No GPU, no virtual sound card, no setup. Install the player, separate stems, and send audio to OBS or your DAW."
+              data-zh="无需 GPU、无需虚拟声卡、无需任何设置。安装播放器，一键分轨，一键发送到 OBS 或 DAW。"
+            >No GPU, no virtual sound card, no setup. Install the player, separate stems, and send audio to OBS or your DAW.</p>
           </div>
 
           <div class="download-grid">
