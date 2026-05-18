@@ -496,6 +496,37 @@
         line-height: 1.25;
       }
 
+      .hero-motion-frame {
+        position: absolute;
+        top: 0;
+        right: -20px;
+        width: min(100%, 960px);
+        aspect-ratio: 1600 / 1000;
+        overflow: hidden;
+      }
+
+      .hero-motion-video,
+      .hero-motion-poster {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .hero-motion-poster {
+        display: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-motion-video {
+          display: none;
+        }
+
+        .hero-motion-poster {
+          display: block;
+        }
+      }
+
       section {
         padding: 72px 0;
       }
@@ -1047,7 +1078,8 @@
         .hero-shot,
         .hero-shot.main,
         .hero-shot.lx,
-        .workflow-dock {
+        .workflow-dock,
+        .hero-motion-frame {
           position: static;
           inset: auto;
           width: 100%;
@@ -1061,6 +1093,8 @@
         }
 
         .hero-shot img,
+        .hero-motion-video,
+        .hero-motion-poster,
         .product-shot img,
         .shot img {
           width: 100%;
@@ -1150,26 +1184,13 @@
             </div>
           </div>
 
-          <div class="hero-media" aria-hidden="true">
-            <div class="hero-shot main">
-              <img src="assets/screenshots/pear/pear-openstems-realtime.png" alt="">
-            </div>
-            <div class="hero-shot lx">
-              <img src="assets/screenshots/lx/lx-music-app.png" alt="">
-            </div>
-            <div class="workflow-dock">
-              <div class="workflow-step">
-                <span data-en="01 Source" data-zh="01 来源">01 Source</span>
-                <b data-en="Pick the player" data-zh="选择播放器">Pick the player</b>
-              </div>
-              <div class="workflow-step">
-                <span data-en="02 Control" data-zh="02 控制">02 Control</span>
-                <b data-en="Realtime or HQ stems" data-zh="Realtime 或 HQ 分轨">Realtime or HQ stems</b>
-              </div>
-              <div class="workflow-step">
-                <span data-en="03 Output" data-zh="03 输出">03 Output</span>
-                <b data-en="OBS or DAW" data-zh="OBS 或 DAW">OBS or DAW</b>
-              </div>
+          <div class="hero-media">
+            <div class="hero-motion-frame" aria-hidden="true">
+              <video class="hero-motion-video" autoplay muted loop playsinline preload="metadata" poster="assets/motion/hero-poster.jpg">
+                <source src="assets/motion/hero-loop.webm" type="video/webm">
+                <source src="assets/motion/hero-loop.mp4" type="video/mp4">
+              </video>
+              <img class="hero-motion-poster" src="assets/motion/hero-poster.jpg" alt="">
             </div>
           </div>
         </div>
